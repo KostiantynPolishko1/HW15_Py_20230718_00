@@ -2,6 +2,7 @@ import random
 import saper_fun
 
 def print_grid(arr: list) ->None:
+    print('GAME SAPER')
     for i in range(len(arr)):
         print(i, end=' | ')
         for j in range(len(arr)):
@@ -45,9 +46,19 @@ def in_position(arr_grid: list, arr_bomb: list, sym_bomb: str) ->bool:
     else:
         arr_grid[row][col] = saper_fun.num_bombs(row, col, arr_bomb, sym_bomb)
         return False
+def mark_bomb(arr_grid: list, marker_bomb: str) -> bool:
+    print('mark BOMB:')
+    if saper_fun.menu_yn():
+        print_grid(arr_grid)
+        print('mark BOMB:')
+        row = int(input('\trow -> '))
+        col = int(input('\tcol -> '))
+        arr_grid[row][col] = marker_bomb
+        return True
+    return False
 
 def start_game(n_bombs: int, size: int) ->tuple:
-    print('GAME SAPER\n\tSTART')
+    print('\tSTART')
     arr_grid = []
     arr_bomb = []
 
