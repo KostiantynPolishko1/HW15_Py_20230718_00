@@ -1,5 +1,4 @@
 import random
-import os
 import saper_fun
 
 def print_grid(arr: list) ->None:
@@ -35,7 +34,7 @@ def fill_bombs(arr: list, size: int = 10, num: int = 8) ->list:
         arr[row][col] = 'x'
     return arr
 
-def in_position(arr_grid, arr_bomb) ->bool:
+def in_position(arr_grid: list, arr_bomb: list, sym_bomb: str) ->bool:
     print('enter position')
     row = int(input('\trow -> '))
     col = int(input('\tcol -> '))
@@ -44,7 +43,7 @@ def in_position(arr_grid, arr_bomb) ->bool:
         arr_grid[row][col] = 'x'
         return True
     else:
-        arr_grid[row][col] = '-'
+        arr_grid[row][col] = saper_fun.num_bombs(row, col, arr_bomb, sym_bomb)
         return False
 
 def start_game(n_bombs: int, size: int) ->tuple:
@@ -58,4 +57,3 @@ def start_game(n_bombs: int, size: int) ->tuple:
     print()
 
     return arr_grid, arr_bomb
-
