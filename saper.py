@@ -1,7 +1,6 @@
 import random
-
-def start_game() ->None:
-    print('GAME SAPER\n\tSTART')
+import os
+import saper_fun
 
 def print_grid(arr: list) ->None:
     for i in range(len(arr)):
@@ -13,16 +12,17 @@ def print_grid(arr: list) ->None:
     print('  | ', end='')
     for i in range(len(arr)):
         print(i, end=' | ')
+    print('\n')
 
-def fill_grid(arr: list, size: int = 10) ->None:
+def fill_grid(arr: list, size: int = 10) ->list:
     for i in range(size):
         arr_temp = []
         for j in range(size):
             arr_temp.append('*')
         arr.append(arr_temp)
+    return arr
 
-
-def fill_bombs(arr: list, size: int = 10, num: int = 8) ->None:
+def fill_bombs(arr: list, size: int = 10, num: int = 8) ->list:
     for i in range(size):
         arr_temp = []
         for j in range(size):
@@ -33,6 +33,7 @@ def fill_bombs(arr: list, size: int = 10, num: int = 8) ->None:
         row = random.randrange(0, 9)
         col = random.randrange(0, 9)
         arr[row][col] = 'x'
+    return arr
 
 def in_position(arr_grid, arr_bomb) ->bool:
     print('enter position')
@@ -46,4 +47,15 @@ def in_position(arr_grid, arr_bomb) ->bool:
         arr_grid[row][col] = '-'
         return False
 
+def start_game(n_bombs: int, size: int) ->tuple:
+    print('GAME SAPER\n\tSTART')
+    arr_grid = []
+    arr_bomb = []
+
+    arr_grid = fill_grid(arr_grid, size)
+    arr_bomb = fill_bombs(arr_bomb, size, n_bombs)
+    print_grid(arr_bomb)
+    print()
+
+    return arr_grid, arr_bomb
 

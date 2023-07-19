@@ -1,24 +1,21 @@
+import os
+import time
 import saper
 
 # Task1 GAME SAPER
 
 if __name__ == '__main__':
-    arr_grid = []
-    arr_bomb = []
-    saper.start_game()
-    print()
-    saper.fill_grid(arr_grid)
-    saper.print_grid(arr_grid)
-
-    print('\n')
-    saper.fill_bombs(arr_bomb)
-    saper.print_grid(arr_bomb)
+    num_bombs = 8
+    size_grid = 10
+    arr_grid, arr_bomb = saper.start_game(num_bombs, size_grid)
 
     while True:
-        print('\n')
-        logic = saper.in_position(arr_grid, arr_bomb)
         saper.print_grid(arr_grid)
+        logic = saper.in_position(arr_grid, arr_bomb)
+        os.system('CLS')
         if logic:
+            saper.print_grid(arr_grid)
             break
     print('\nEND of GAME')
-
+else:
+    print('ERROR')
