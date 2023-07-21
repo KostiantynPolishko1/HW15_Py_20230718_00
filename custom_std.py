@@ -1,12 +1,18 @@
 import os
+from saper_data import *
 
 
-def menu_function(menu_f: dict) -> int:
+def menu_function(menu_f: dict, *name_dict: str) -> int:
+
     ind = 0
     while True:
         for i in range(len(menu_f)):
             if i == ind:
-                print('-> ', menu_f[i][0])
+                print('-> ', menu_f[i][0], end='\t')
+                if name_dict:
+                    print('{} -> {} \n\t\t{}: {} x {} | {} x {}'.format(name_bomb, menu_f[ind][1], name_size, row,
+                                                                        col, menu_f[ind][2],  menu_f[ind][3]))
+                print()
                 continue
             print('   ', menu_f[i][0])
 
@@ -26,6 +32,6 @@ def menu_function(menu_f: dict) -> int:
 
         # check position
         if ind < 0:
-            ind = 1
-        elif ind > 1:
+            ind = len(menu_f)-1
+        elif ind > len(menu_f)-1:
             ind = 0
