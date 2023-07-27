@@ -35,3 +35,10 @@ def menu_function(menu_f: dict, *name_dict: str) -> int:
             ind = len(menu_f)-1
         elif ind > len(menu_f)-1:
             ind = 0
+
+
+def linear_interpolation(x1: int, x2: int, x: int, y1: int, y2: int, y: int) -> bool:
+    if y > int(((y1+(x-x1))/(x2-x1))*(y2-y1)):
+        print('enter bombs <= {}'.format(int(((y1+(x-x1))/(x2-x1))*(y2-y1))))
+        return False
+    return True

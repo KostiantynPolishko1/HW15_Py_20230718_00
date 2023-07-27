@@ -1,5 +1,6 @@
 import random
 import os
+import time
 from saper_data import *
 import custom_std
 
@@ -83,24 +84,39 @@ def mark_bomb(menu_f: dict, arr_grid: list, arr_bomb: list) -> bool:
     return False
 
 
+def check_in_values(arr: list, bombs_in: int, row_in: int, col_in: int) -> bool:
+    if arr[1] < bombs_in < arr[2] and arr[3] < row_in < arr[4] and arr[5] < col_in < arr[6]:
+        return custom_std.linear_interpolation(9 * 9, 24 * 30, row_in * col_in, 10, 668, bombs_in)
+
+    print('one of data is out of range for:'
+          '\n\t BOMBS -> {}\n\t HEIGHT -> {}\n\t WIDTH -> {}'.format(bombs_in, row_in, col_in))
+    return False
+
 def start_game() -> tuple:
+    logic = False
 
     print('\tSTART')
     print(name_bomb)
     ind = custom_std.menu_function(menu_parameter, 'parameter')
 
-    if ind == 3:
-        print('\t', name_bomb, end=' ')
-        bombs_num = input(str(menu_parameter[ind][1])+' -> ')
-        print('\t', row, end=' ')
-        size_row = input(str(menu_parameter[ind][2])+' -> ')
-        print('\t', col, end=' ')
-        size_col = input(str(menu_parameter[ind][3])+' -> ')
-    else:
-        bombs_num = menu_parameter[ind][1]
-        size_row = menu_parameter[ind][2]
-        size_col = menu_parameter[ind][3]
-    marker_num = bombs_num
+    while not logic:
+        if ind == 3:
+            print('\t', name_bomb, end=' ')
+            bombs_num = int(input(str(menu_parameter[ind][1]) + ' - ' + str(menu_parameter[ind][2]) + ' -> '))
+            print('\t', row, end=' ')
+            size_row = int(input(str(menu_parameter[ind][3]) + ' - ' + str(menu_parameter[ind][4]) + ' -> '))
+            print('\t', col, end=' ')
+            size_col = int(input(str(menu_parameter[ind][5]) + ' - ' + str(menu_parameter[ind][6]) + ' -> '))
+
+            logic = check_in_values(menu_parameter[ind], bombs_num, size_row, size_col)
+            time.sleep(2)
+            os.system('CLS')
+            # linear_interpolation(x1, x2, x, y1, y2, y) for check quantity of bombs due to custom grid
+        else:
+            bombs_num = menu_parameter[ind][1]
+            size_row = menu_parameter[ind][2]
+            size_col = menu_parameter[ind][3]
+            logic = True
 
     print(bombs_num, size_row, size_col)
     arr_grid = []
